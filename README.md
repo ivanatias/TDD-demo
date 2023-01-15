@@ -34,8 +34,6 @@ Code is refactored for readability and maintainability. In particular, hard-code
 - Splitting methods into smaller pieces
 - Re-arranging inheritance hierarchies
 
-This is known as the YELLOW stage.
-
 ## REPEAT
 
 The cycle above is repeated for each new piece of functionality. Tests should be small and incremental, and commits made often. That way, if new code fails some tests, the programmer can simply undo or revert rather than debug excessively.
