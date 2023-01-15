@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import Product from '@/components/Product'
+import Product from '@/components/product'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 
 describe('<Product />', () => {

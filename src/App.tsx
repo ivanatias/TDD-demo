@@ -1,5 +1,5 @@
 import { useState, useEffect, ReactElement } from 'react'
-import Products from '@/components/Products'
+import Products from '@/components/products'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 
 const App = (): ReactElement => {
