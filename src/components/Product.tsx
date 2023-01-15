@@ -8,7 +8,7 @@ interface Props {
 const Product = ({ product }: Props): ReactElement => {
   const { id, thumbnail, title, description, category, price } = product
   return (
-    <li key={id}>
+    <li>
       <div>
         <img src={thumbnail} alt={`product thumbnail-${id}`} />
         <h3>{title}</h3>

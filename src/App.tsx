@@ -1,5 +1,5 @@
 import { useState, useEffect, ReactElement } from 'react'
-import Product from '@/components/Product'
+import Products from '@/components/Products'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 
 const App = (): ReactElement => {
@@ -19,12 +19,7 @@ const App = (): ReactElement => {
       {loading ? (
         <div role='progressbar'>Loading...</div>
       ) : (
-        <ul>
-          {/* Test #3 */}
-          {mockedProducts.products.map(product => (
-            <Product key={product.id} product={product} />
-          ))}
-        </ul>
+        <Products products={mockedProducts.products} /> // Test #3
       )}
     </>
   )
