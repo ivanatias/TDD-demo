@@ -4,6 +4,10 @@ import { mockedProducts } from './utils/mocked-products'
 
 describe('<Products />', () => {
   it('renders a list of products received via props', () => {
+    /* 
+      This test is already covered in App.test.tsx but we want to strictly follow TDD practices,
+      so before creating the products component, we want to make sure we write the tests for it first.
+    */
     render(<Products products={mockedProducts.products} />)
 
     mockedProducts.products.forEach(product => {
