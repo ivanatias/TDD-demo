@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import Products from '@/components/products'
+import Products from '@/components/products-list'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 import { assertListOfProducts } from '@/tests/utils/assert-list-of-products'
 

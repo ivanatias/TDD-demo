@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import Product from '@/components/product'
+import Product from '@/components/single-product'
 import type { Product as ProductType } from '@/models/products'
 
 interface Props {

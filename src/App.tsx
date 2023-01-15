@@ -1,5 +1,5 @@
 import { useState, useEffect, ReactElement } from 'react'
-import Products from '@/components/products'
+import Products from '@/components/products-list'
 import Wrapper from './components/wrapper'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 
