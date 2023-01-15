@@ -20,7 +20,7 @@ Write the simplest code that passes the new test. Inelegant or hard code is acce
 
 The tests should now pass. This is known as the GREEN stage.
 
-## YELLOW
+## Refactor
 
 Refactor as needed, using tests after each refactor to ensure that functionality is preserved.
 
