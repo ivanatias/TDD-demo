@@ -19,4 +19,4 @@ interface Product {
   images: string[]
 }
 
-export { ProductsResponse }
+export { ProductsResponse, Product }
