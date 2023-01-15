@@ -8,7 +8,7 @@ interface Props {
 
 const Products = ({ products }: Props): ReactElement => {
   return (
-    <ul>
+    <ul className='flex flex-col gap-5'>
       {products.map(product => (
         <Product key={product.id} product={product} />
       ))}
