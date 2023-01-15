@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import Wrapper from '@/components/wrapper'
 
 describe('<Wrapper />', () => {
-  it('render all its children', () => {
+  it('renders all its children', () => {
     render(
       <Wrapper>
         <div>Test</div>
