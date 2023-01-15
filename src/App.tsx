@@ -1,4 +1,5 @@
 import { useState, useEffect, ReactElement } from 'react'
+import Product from '@/components/Product'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 
 const App = (): ReactElement => {
@@ -20,21 +21,9 @@ const App = (): ReactElement => {
       ) : (
         <ul>
           {/* Test #3 */}
-          {mockedProducts.products.map(
-            ({ title, price, id, description, category, thumbnail }) => (
-              <li key={id}>
-                <div>
-                  <img src={thumbnail} alt={`product thumbnail-${id}`} />
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                  <p>{category}</p>
-                  <span>
-                    <strong>{price}</strong>
-                  </span>
-                </div>
-              </li>
-            )
-          )}
+          {mockedProducts.products.map(product => (
+            <Product key={product.id} product={product} />
+          ))}
         </ul>
       )}
     </>
