@@ -13,16 +13,13 @@ interface RequestConfig {
   body: string
 }
 
-interface MockedResults<T> {
+interface MockedResults {
   ok: boolean
   status: number
-  json: () => Promise<T>
+  json: () => Promise<ProductsResponse>
 }
 
-const mockedFetch = (
-  url: string,
-  config?: RequestConfig
-): MockedResults<ProductsResponse> => {
+const mockedFetch = (url: string, config?: RequestConfig): MockedResults => {
   switch (url) {
     case 'https://dummyjson.com/products?limit=20': {
       return {
