@@ -6,6 +6,16 @@ import {
 import App from '@/App'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 import { assertListOfProducts } from '@/tests/utils/assert-list-of-products'
+import { mockedFetch } from '@/tests/utils/mocked-fetch'
+
+// Mocking fetch
+// See @tests/utils/mocked-fetch to check the implementation.
+// NOTE: This is a valid approach but it's not the best choice -> MSW (Mock Service Worker) usage is better.
+// This will be included later on.
+
+beforeEach(() =>
+  jest.spyOn(global, 'fetch').mockImplementation(mockedFetch as jest.Mock)
+)
 
 describe('<App />', () => {
   // Test #1 - Check if the app's title is properly rendered then proceed to make the test pass.
@@ -35,6 +45,20 @@ describe('<App />', () => {
 
       // Checking and asserting all mocked products' presence in the document.
       assertListOfProducts(mockedProducts.products)
+    })
+
+    // Test #4 - Basically the same as Test #3 but now we are mocking the http request.
+    it('fetchs a list of products from the API and render it once the loading indicator dissapears', async () => {
+      const urlForRequest = 'https://dummyjson.com/products?limit=20'
+
+      render(<App />)
+
+      await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'))
+
+      assertListOfProducts(mockedProducts.products)
+
+      expect(global.fetch).toHaveBeenCalledTimes(1)
+      expect(global.fetch).toHaveBeenCalledWith(urlForRequest)
     })
   })
 })
