@@ -24,7 +24,7 @@ const mockedFetch = (
   config?: RequestConfig
 ): MockedResults<ProductsResponse> => {
   switch (url) {
-    case 'https://dummyjson.com/products': {
+    case 'https://dummyjson.com/products?limit=20': {
       return {
         ok: true,
         status: 200,
