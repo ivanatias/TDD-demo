@@ -42,7 +42,7 @@ const App = (): ReactElement => {
       {/* Test #6 */}
       {error !== '' && <p className='text-center'>{error}</p>}
       {/* Test #3 */}
-      <Products products={products} />
+      {products.length > 0 && <Products products={products} />}
     </Wrapper>
   )
 }
