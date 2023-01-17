@@ -68,7 +68,11 @@ describe('<App />', () => {
       expect(global.fetch).toHaveBeenCalledWith(urlForRequest)
     })
 
+    // Test #5 - Check if the app renders a no products message
     it('renders a "No products" message if no products are available from request', async () => {
+      // Mocking fetch's return value only for this test to make it return an empty list of products
+      // Since we are modifying the global object, this can affect other tests.
+      // That's why we are saving an unmocked reference to global.fetch and restoring it after each test.
       global.fetch = jest.fn().mockReturnValueOnce({
         ok: true,
         status: 200,
