@@ -26,16 +26,17 @@ const App = (): ReactElement => {
         Products TDD Demo
       </h1>
       {/* Test #2 */}
-      {loading ? (
+      {loading && products.length === 0 && (
         <div role='progressbar' className='text-center'>
           Loading...
         </div>
-      ) : (
-        <Products products={products} /> // Test #3
       )}
+      {/* Test #5 */}
       {products.length === 0 && !loading && (
-        <p className='text-center'>No products</p> // Test #5
+        <p className='text-center'>No products</p>
       )}
+      {/* Test #3 */}
+      <Products products={products} />
     </Wrapper>
   )
 }
