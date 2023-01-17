@@ -86,5 +86,24 @@ describe('<App />', () => {
       const noResults = screen.getByText(/no products/i)
       expect(noResults).toBeInTheDocument()
     })
+
+    // Test #6 Check if the app renders an error message
+    it('renders an error message if an exception is thrown', async () => {
+      const error = 'Error retrieving products'
+      global.fetch = jest.fn().mockReturnValueOnce({
+        ok: false,
+        status: 500
+      })
+      // or -> global.fetch = jest.fn().mockRejectedValueOnce(new Error(error))
+      // I like the first one the most, since it's also testing that our fetchProducts function
+      // is throwing when the "ok" property of the response is false.
+
+      render(<App />)
+
+      await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'))
+
+      const errorMessage = screen.getByText(error)
+      expect(errorMessage).toBeInTheDocument()
+    })
   })
 })
