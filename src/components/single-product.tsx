@@ -24,10 +24,12 @@ const Product = ({ product }: Props): ReactElement => {
             </div>
           </div>
           <p>{description}</p>
-          <strong>
-            {price}
-            <span className='ml-1'>USD</span>
-          </strong>
+          <p>
+            <strong>
+              {price}
+              <span className='ml-1'>USD</span>
+            </strong>
+          </p>
         </div>
       </div>
     </li>
