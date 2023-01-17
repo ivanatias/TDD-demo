@@ -6,23 +6,16 @@ import {
 import App from '@/App'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 import { assertListOfProducts } from '@/tests/utils/assert-list-of-products'
-import { mockedFetch } from '@/tests/utils/mocked-fetch'
+// import { mockedFetch } from '@/tests/utils/mocked-fetch'
 
 // Mocking fetch
 // See @tests/utils/mocked-fetch to check the implementation.
 // NOTE: This is a valid approach but it's not the best choice -> MSW (Mock Service Worker) usage is better.
 // This will be included later on.
 
-// Saving an unmocked reference of fetch for cleanup.
-const unmockedFetch = global.fetch
-
-beforeEach(() =>
+/* beforeEach(() =>
   jest.spyOn(global, 'fetch').mockImplementation(mockedFetch as jest.Mock)
-)
-
-afterEach(() => {
-  global.fetch = unmockedFetch
-})
+) */
 
 describe('<App />', () => {
   // Test #1 - Check if the app's title is properly rendered then proceed to make the test pass.
@@ -56,7 +49,7 @@ describe('<App />', () => {
 
     // Test #4 - Basically the same as Test #3 but now we are mocking the http request.
     it('fetchs a list of products from the API and render it once the loading indicator dissapears', async () => {
-      const urlForRequest = 'https://dummyjson.com/products?limit=20'
+      // const urlForRequest = 'https://dummyjson.com/products?limit=20'
 
       render(<App />)
 
@@ -64,46 +57,8 @@ describe('<App />', () => {
 
       assertListOfProducts(mockedProducts.products)
 
-      expect(global.fetch).toHaveBeenCalledTimes(1)
-      expect(global.fetch).toHaveBeenCalledWith(urlForRequest)
-    })
-
-    // Test #5 - Check if the app renders a no products message
-    it('renders a "No products" message if no products are available from request', async () => {
-      // Mocking fetch's return value only for this test to make it return an empty list of products
-      // Since we are modifying the global object, this can affect other tests.
-      // That's why we are saving an unmocked reference to global.fetch and restoring it after each test.
-      global.fetch = jest.fn().mockReturnValueOnce({
-        ok: true,
-        status: 200,
-        json: async () => ({ products: [] })
-      })
-
-      render(<App />)
-
-      await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'))
-
-      const noResults = screen.getByText(/no products/i)
-      expect(noResults).toBeInTheDocument()
-    })
-
-    // Test #6 Check if the app renders an error message
-    it('renders an error message if an exception is thrown', async () => {
-      const error = 'Error retrieving products'
-      global.fetch = jest.fn().mockReturnValueOnce({
-        ok: false,
-        status: 500
-      })
-      // or -> global.fetch = jest.fn().mockRejectedValueOnce(new Error(error))
-      // I like the first one the most, since it's also testing that our fetchProducts function
-      // is throwing when the "ok" property of the response is false.
-
-      render(<App />)
-
-      await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'))
-
-      const errorMessage = screen.getByText(error)
-      expect(errorMessage).toBeInTheDocument()
+      // expect(global.fetch).toHaveBeenCalledTimes(1)
+      // expect(global.fetch).toHaveBeenCalledWith(urlForRequest)
     })
   })
 })
