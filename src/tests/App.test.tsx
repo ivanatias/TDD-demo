@@ -13,9 +13,16 @@ import { mockedFetch } from '@/tests/utils/mocked-fetch'
 // NOTE: This is a valid approach but it's not the best choice -> MSW (Mock Service Worker) usage is better.
 // This will be included later on.
 
+// Saving an unmocked reference of fetch for cleanup.
+const unmockedFetch = global.fetch
+
 beforeEach(() =>
   jest.spyOn(global, 'fetch').mockImplementation(mockedFetch as jest.Mock)
 )
+
+afterEach(() => {
+  global.fetch = unmockedFetch
+})
 
 describe('<App />', () => {
   // Test #1 - Check if the app's title is properly rendered then proceed to make the test pass.
@@ -59,6 +66,21 @@ describe('<App />', () => {
 
       expect(global.fetch).toHaveBeenCalledTimes(1)
       expect(global.fetch).toHaveBeenCalledWith(urlForRequest)
+    })
+
+    it('renders a "No products" message if no products are available from request', async () => {
+      global.fetch = jest.fn().mockReturnValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({ products: [] })
+      })
+
+      render(<App />)
+
+      await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'))
+
+      const noResults = screen.getByText('No products')
+      expect(noResults).toBeInTheDocument()
     })
   })
 })
