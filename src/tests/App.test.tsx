@@ -83,7 +83,7 @@ describe('<App />', () => {
 
       await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'))
 
-      const noResults = screen.getByText('No products')
+      const noResults = screen.getByText(/no products/i)
       expect(noResults).toBeInTheDocument()
     })
   })
