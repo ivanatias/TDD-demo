@@ -36,7 +36,7 @@ const App = (): ReactElement => {
         <p className='text-center'>No products</p>
       )}
       {/* Test #3 */}
-      <Products products={products} />
+      {products.length > 0 && <Products products={products} />}
     </Wrapper>
   )
 }
