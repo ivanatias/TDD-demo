@@ -19,8 +19,11 @@ import { assertListOfProducts } from '@/tests/utils/assert-list-of-products'
 
 describe('<App />', () => {
   // Test #1 - Check if the app's title is properly rendered then proceed to make the test pass.
-  it('correctly renders the app title', () => {
+  it('correctly renders the app title', async () => {
     render(<App />)
+
+    await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'))
+
     const title = screen.getByRole('heading', { name: /products tdd /i })
     expect(title).toBeInTheDocument()
   })
