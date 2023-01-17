@@ -7,12 +7,16 @@ import { fetchProducts } from '@/services/fetch-products'
 const App = (): ReactElement => {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   // Test #4
   useEffect(() => {
     fetchProducts()
       .then(results => {
         setProducts(results.products)
+      })
+      .catch(err => {
+        if (err instanceof Error) setError(err.message)
       })
       .finally(() => {
         setLoading(false)
@@ -35,6 +39,8 @@ const App = (): ReactElement => {
       {products.length === 0 && !loading && (
         <p className='text-center'>No products</p>
       )}
+      {/* Test #6 */}
+      {error !== '' && <p className='text-center'>{error}</p>}
       {/* Test #3 */}
       <Products products={products} />
     </Wrapper>
