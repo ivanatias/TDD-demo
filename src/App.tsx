@@ -33,6 +33,9 @@ const App = (): ReactElement => {
       ) : (
         <Products products={products} /> // Test #3
       )}
+      {products.length === 0 && !loading && (
+        <p className='text-center'>No products</p> // Test #5
+      )}
     </Wrapper>
   )
 }
