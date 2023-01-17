@@ -15,9 +15,16 @@ import { rest } from 'msw'
 // NOTE: This is a valid approach but it's not the best choice -> MSW (Mock Service Worker) usage is better.
 // This will be included later on.
 
+// Saving an unmocked reference of fetch for cleanup.
+// const unmockedFetch = global.fetch
+
 /* beforeEach(() =>
-  jest.spyOn(global, 'fetch').mockImplementation(mockedFetch as jest.Mock)
+jest.spyOn(global, 'fetch').mockImplementation(mockedFetch as jest.Mock)
 ) */
+
+/* afterEach(() => {
+  global.fetch = unmockedFetch
+}) */
 
 describe('<App />', () => {
   // Test #1 - Check if the app's title is properly rendered then proceed to make the test pass.
