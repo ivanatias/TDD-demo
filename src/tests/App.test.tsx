@@ -6,6 +6,8 @@ import {
 import App from '@/App'
 import { mockedProducts } from '@/tests/utils/mocked-products'
 import { assertListOfProducts } from '@/tests/utils/assert-list-of-products'
+import { server } from '@/mocks/server'
+import { rest } from 'msw'
 // import { mockedFetch } from '@/tests/utils/mocked-fetch'
 
 // Mocking fetch
@@ -13,9 +15,16 @@ import { assertListOfProducts } from '@/tests/utils/assert-list-of-products'
 // NOTE: This is a valid approach but it's not the best choice -> MSW (Mock Service Worker) usage is better.
 // This will be included later on.
 
+// Saving an unmocked reference of fetch for cleanup.
+// const unmockedFetch = global.fetch
+
 /* beforeEach(() =>
-  jest.spyOn(global, 'fetch').mockImplementation(mockedFetch as jest.Mock)
+jest.spyOn(global, 'fetch').mockImplementation(mockedFetch as jest.Mock)
 ) */
+
+/* afterEach(() => {
+  global.fetch = unmockedFetch
+}) */
 
 describe('<App />', () => {
   // Test #1 - Check if the app's title is properly rendered then proceed to make the test pass.
@@ -59,6 +68,31 @@ describe('<App />', () => {
 
       // expect(global.fetch).toHaveBeenCalledTimes(1)
       // expect(global.fetch).toHaveBeenCalledWith(urlForRequest)
+    })
+
+    // Test #5 - Check if the app renders a no products message
+    it('renders a "No products" message if no products are available from request', async () => {
+      // Mocking fetch's return value only for this test to make it return an empty list of products
+      // Since we are modifying the global object, this can affect other tests.
+      // That's why we are saving an unmocked reference to global.fetch and restoring it after each test.
+      /* global.fetch = jest.fn().mockReturnValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({ products: [] })
+      }) */
+
+      server.use(
+        rest.get('https://dummyjson.com/products', (req, res, ctx) => {
+          return res(ctx.status(200), ctx.json({ products: [] }))
+        })
+      )
+
+      render(<App />)
+
+      await waitForElementToBeRemoved(() => screen.queryByRole('progressbar'))
+
+      const noResults = screen.getByText(/no products/i)
+      expect(noResults).toBeInTheDocument()
     })
   })
 })
